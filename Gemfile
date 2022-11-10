@@ -1,56 +1,58 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.0.4"
+ruby '3.0.4'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.0.4"
+gem 'rails', '~> 7.0.4'
 
 # Use postgresql as the database for Active Record
-gem "pg", "~> 1.1"
+gem 'pg', '~> 1.1'
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 5.0"
+gem 'puma', '~> 5.0'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 # Reduces boot times through caching; required in config/boot.rb
-gem "bootsnap", require: false
+gem 'bootsnap', require: false
 
 # Rails background jobs
-gem "sidekiq", "~> 7.0"
+gem 'sidekiq', '~> 7.0'
 
 # Authorization and authentication
-gem "devise", "~> 4.8"
+gem 'devise', '~> 4.8'
 
 # Pagination
-gem "kaminari", "~> 1.2"
+gem 'kaminari', '~> 1.2'
 
 # Caching
-gem "redis", "~> 5.0"
+gem 'redis', '~> 5.0'
 
 # Image uploading
-gem "carrierwave", "~> 2.2"
+gem 'carrierwave', '~> 2.2'
 
 # Soft deletion of db records
-gem "discard", "~> 1.2"
+gem 'discard', '~> 1.2'
 
-# 
-gem "aasm", "~> 5.4"
+# State management
+gem 'aasm', '~> 5.4'
 
+# Environment settings
+gem 'dotenv', '~> 2.8'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem 'debug', platforms: %i[mri mingw x64_mingw]
 end
 
 group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
-  gem "spring"
+  gem 'spring'
 end
 
 group :test do
-  gem "rspec", "~> 3.12"
-  gem "capybara", "~> 3.38"
+  gem 'capybara', '~> 3.38'
+  gem 'rspec', '~> 3.12'
 end
