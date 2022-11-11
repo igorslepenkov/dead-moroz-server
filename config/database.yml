@@ -29,10 +29,10 @@ development:
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user running Rails.
-  #username: dead_moroz_server
+  username: <%= ENV["POSTGRES_USERNAME"] || Rails.application.credentials.database[:default_username] %>
 
   # The password associated with the postgres role (username).
-  #password:
+  password: <%= ENV["POSTGRES_PASSWORD"] || Rails.application.credentials.database[:default_password] %>
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -41,7 +41,7 @@ development:
 
   # The TCP port the server listens on. Defaults to 5432.
   # If your server runs on a different port number, change accordingly.
-  #port: 5432
+  port: <%= ENV["POSTGRES_PORT"] || Rails.application.credentials.database[:default_port] %>
 
   # Schema search path. The server defaults to $user,public
   #schema_search_path: myapp,sharedapp,public
@@ -58,6 +58,10 @@ development:
 test:
   <<: *default
   database: dead_moroz_server_test
+
+  username: <%= ENV["POSTGRES_USERNAME"] || Rails.application.credentials.database[:default_username] %>
+  password: <%= ENV["POSTGRES_PASSWORD"] || Rails.application.credentials.database[:default_password] %>
+  port: <%= ENV["POSTGRES_PORT"] || Rails.application.credentials.database[:default_port] %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
