@@ -25,6 +25,7 @@ gem 'sidekiq', '~> 7.0'
 gem 'devise', '~> 4.8'
 gem 'devise_invitable'
 gem 'devise-jwt'
+gem 'pundit', '~> 2.2'
 
 # Pagination
 gem 'kaminari', '~> 1.2'
