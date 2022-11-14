@@ -4,4 +4,10 @@ class User < ApplicationRecord
          :jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
   enum :role, Constants::USER_ROLES
   validates :role, presence: true
+
+  private
+
+  def jwt_payload
+    super.merge(role: self[:role])
+  end
 end
