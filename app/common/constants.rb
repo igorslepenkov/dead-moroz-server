@@ -1,5 +1,5 @@
 module Constants
-  ROLE = {
+  USER_ROLES = {
     dead_moroz: 'dead_moroz',
     elf: 'elf',
     child: 'child'
