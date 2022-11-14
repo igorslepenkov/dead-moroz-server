@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.4'
+ruby '3.1.2'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0.4'
@@ -23,6 +23,9 @@ gem 'sidekiq', '~> 7.0'
 
 # Authorization and authentication
 gem 'devise', '~> 4.8'
+gem 'devise_invitable'
+gem 'devise-jwt'
+gem 'pundit', '~> 2.2'
 
 # Pagination
 gem 'kaminari', '~> 1.2'
@@ -40,7 +43,7 @@ gem 'discard', '~> 1.2'
 gem 'aasm', '~> 5.4'
 
 # Environment settings
-gem 'dotenv', '~> 2.8'
+gem 'dotenv-rails', require: 'dotenv/rails-now'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -54,5 +57,5 @@ end
 
 group :test do
   gem 'capybara', '~> 3.38'
-  gem 'rspec', '~> 3.12'
+  gem 'rspec-rails', '~> 6.0.0'
 end
