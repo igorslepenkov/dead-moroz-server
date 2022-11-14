@@ -27,6 +27,9 @@ gem 'devise_invitable'
 gem 'devise-jwt'
 gem 'pundit', '~> 2.2'
 
+# CORS
+gem 'rack-cors'
+
 # Pagination
 gem 'kaminari', '~> 1.2'
 
