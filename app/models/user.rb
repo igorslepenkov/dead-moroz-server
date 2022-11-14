@@ -5,9 +5,7 @@ class User < ApplicationRecord
   enum :role, Constants::USER_ROLES
   validates :role, presence: true
 
-  private
-
   def jwt_payload
-    super.merge(role: self[:role])
+    { role: }
   end
 end
