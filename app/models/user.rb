@@ -4,8 +4,4 @@ class User < ApplicationRecord
          :jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
   enum :role, Constants::USER_ROLES
   validates :role, presence: true
-
-  def jwt_payload
-    { role: }
-  end
 end
