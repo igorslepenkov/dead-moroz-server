@@ -1,6 +1,8 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   include RackSessionFix
 
+  before_action :extend_sign_up_params, only: :create
+
   private
 
   def respond_with(resource, _opts = {})
@@ -15,9 +17,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def register_failed(resource_errors)
     if resource_errors
-      render json: { message: 'Errors have occured', errors: resource_errors }
+      render json: { message: 'Errors have occured', errors: resource_errors }, status: :bad_request
     else
       render json: { message: 'Something went wrong.' }
     end
+  end
+
+  def extend_sign_up_params
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
   end
 end
