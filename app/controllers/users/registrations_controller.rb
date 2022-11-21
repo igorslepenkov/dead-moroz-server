@@ -7,10 +7,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
     user = User.find(params[:id])
     user.create_child_profile(create_child_profile_params)
     if user.save
-      render json: { user: }
+      render json: user, include: ['child_profile'], status: :ok
     else
-      p user.child_profile
-      render json: { message: 'Errors have occured', errors: user.errors.full_messages }
+      render json: { message: 'Errors have occured', errors: user.errors.full_messages }, status: :bad_request
     end
   end
 
