@@ -5,10 +5,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def create_child_profile
     user = User.find(params[:id])
-    user.create_child_profile(params[:child_profile])
+    user.create_child_profile(create_child_profile_params)
     if user.save
       render json: { user: }
     else
+      p user.child_profile
       render json: { message: 'Errors have occured', errors: user.errors.full_messages }
     end
   end
@@ -38,6 +39,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def create_child_profile_params
-    devise_parameter_sanitizer.permit(:create_child_profile, keys: %i[id child_profile])
+    params.require(:create_child_profile).permit(:country, :city, :hobbies, :birthdate, :past_year_description,
+                                                 :good_deeds, :avatar)
   end
 end
