@@ -9,5 +9,4 @@ class ChildProfile < ApplicationRecord
   validates :hobbies, presence: true
   validates :past_year_description, presence: true
   validates :good_deeds, presence: true
-  validates :avatar, presence: true
 end

@@ -3,6 +3,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   before_action :extend_sign_up_params, only: :create
 
+  def create_child_profile
+    user = User.find(params[:id])
+    user.create_child_profile(params[:child_profile])
+    if user.save
+      render json: { user: }
+    else
+      render json: { message: 'Errors have occured', errors: user.errors.full_messages }
+    end
+  end
+
   private
 
   def respond_with(resource, _opts = {})
@@ -25,5 +35,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def extend_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+  end
+
+  def create_child_profile_params
+    devise_parameter_sanitizer.permit(:create_child_profile, keys: %i[id child_profile])
   end
 end

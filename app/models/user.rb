@@ -8,4 +8,6 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
 
   has_one :child_profile, dependent: :destroy, validate: true
+
+  accepts_nested_attributes_for :child_profile
 end

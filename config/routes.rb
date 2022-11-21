@@ -3,6 +3,10 @@ Rails.application.routes.draw do
               defaults: { format: :json },
               controllers: {
                 sessions: 'users/sessions',
-                registrations: 'users/registrations'
+                registrations: 'users/registrations',
+                confirmations: 'users/confirmations'
               }
+  devise_scope :user do
+    post 'users/:id/child_profile', to: 'users/registrations#create_child_profile', as: 'create_child_profile'
+  end
 end
