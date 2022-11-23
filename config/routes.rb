@@ -7,7 +7,7 @@ Rails.application.routes.draw do
                 confirmations: 'users/confirmations'
               }
   devise_scope :user do
-    post 'users/:id/child_profile', to: 'users/registrations#create_child_profile', as: 'create_child_profile'
-    put 'users/:id/child_profile', to: 'users/registrations#update_child_profile', as: 'update_child_profile'
+    post 'users/:id/child_profile', to: 'users/child_profiles#create_child_profile', as: 'create_child_profile'
+    patch 'users/:id/child_profile', to: 'users/child_profiles#update_child_profile', as: 'update_child_profile'
   end
 end
