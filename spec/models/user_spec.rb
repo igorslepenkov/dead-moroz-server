@@ -5,8 +5,8 @@ RSpec.describe User, type: :model do
     expect(User.count).to eq 0
   end
 
-  it 'should create valid User instance with valid email and password' do
-    expect(User.new(email: 'slepenkov.nii@yandex.by', password: '123456')).to be_valid
+  it 'should create valid User instance with valid email, password and name' do
+    expect(User.new(email: 'slepenkov.nii@yandex.by', password: '123456', name: 'Igor Slepenkov')).to be_valid
   end
 
   it 'should not be valid without email or password' do
@@ -15,7 +15,7 @@ RSpec.describe User, type: :model do
   end
 
   it 'should have one instance after adding one with valid data' do
-    User.create(email: 'slepenkov.nii@yandex.by', password: '123456')
+    User.create(email: 'slepenkov.nii@yandex.by', password: '123456', name: 'Igor Slepenkov')
     expect(User.count).to eq 1
   end
 end

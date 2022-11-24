@@ -9,5 +9,5 @@ class User < ApplicationRecord
 
   has_one :child_profile, dependent: :destroy, validate: true
 
-  accepts_nested_attributes_for :child_profile
+  has_many :child_presents, dependent: :destroy, validate: true
 end
