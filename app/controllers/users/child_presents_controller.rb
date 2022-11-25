@@ -2,7 +2,7 @@ class Users::ChildPresentsController < ApplicationController
   before_action :set_user
 
   def create
-    @user.child_presents.build(child_presents_params[:child_presents])
+    @user.child_presents.build(child_present_params['0'])
 
     if @user.save
       render json: @user.child_presents, status: :ok
@@ -17,7 +17,7 @@ class Users::ChildPresentsController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def child_presents_params
-    params.permit(child_presents: %i[name image])
+  def child_present_params
+    params.require(:child_present).permit("0": %i[name image])
   end
 end
