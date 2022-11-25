@@ -38,6 +38,8 @@ gem 'redis', '~> 5.0'
 
 # Image uploading
 gem 'carrierwave', '~> 2.2'
+gem 'file_validators'
+gem 'fog'
 
 # Soft deletion of db records
 gem 'discard', '~> 1.2'

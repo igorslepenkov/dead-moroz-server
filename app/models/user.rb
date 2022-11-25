@@ -6,4 +6,8 @@ class User < ApplicationRecord
   validates :role, presence: true
   validates :name, presence: true, length: { in: 3..50 }
   validates :email, presence: true, uniqueness: true
+
+  has_one :child_profile, dependent: :destroy, validate: true
+
+  accepts_nested_attributes_for :child_profile
 end
