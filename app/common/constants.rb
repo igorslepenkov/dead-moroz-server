@@ -4,4 +4,16 @@ module Constants
     elf: 'elf',
     child: 'child'
   }.freeze
+
+  USER_SORTINGS = {
+    All: 'all',
+    Reviews: 'reviews',
+    Score: 'score',
+    Scored?: 'scored?'
+  }.freeze
+
+  USER_SORTINGS_ORDERS = {
+    ASC: 'ASC',
+    DESC: 'DESC'
+  }.freeze
 end

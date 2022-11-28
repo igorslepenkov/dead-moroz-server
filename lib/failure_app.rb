@@ -1,6 +1,6 @@
 class FailureApp < Devise::FailureApp
   def respond
-    request.media_type == 'application/json' || request.media_type == 'multipart/form-data' ? api_unauthorized_request : super
+    api_unauthorized_request
   end
 
   private

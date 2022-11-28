@@ -1,4 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
+  skip_before_action :authenticate_user!, only: [:create]
+
   private
 
   def respond_with(resource, _opts = {})
