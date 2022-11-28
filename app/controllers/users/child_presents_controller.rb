@@ -11,6 +11,16 @@ class Users::ChildPresentsController < ApplicationController
     end
   end
 
+  def delete
+    @present = @user.child_presents.find(params[:present_id])
+
+    if @present.destroy
+      render json: { message: 'Present deleted', child_presents: @user.child_presents }, status: :ok
+    else
+      render json: { message: 'Something happend, present is not deleted' }, status: :bad_request
+    end
+  end
+
   private
 
   def set_user
