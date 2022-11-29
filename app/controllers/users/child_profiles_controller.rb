@@ -2,37 +2,10 @@ class Users::ChildProfilesController < ApplicationController
   before_action :set_user, only: %i[create update]
 
   def index
-    page = child_profiles_index_params[:page]
-    sort_type = child_profiles_index_params[:sort_type] || Constants::USER_SORTINGS[:All]
-    sort_order = child_profiles_index_params[:sort_order] || Constants::USER_SORTINGS_ORDERS[:DESC]
-    limit = child_profiles_index_params[:limit] || 10
-
-    @children = User.children
-
-    case sort_type
-    when Constants::USER_SORTINGS[:All]
-      case sort_order
-      when Constants::USER_SORTINGS_ORDERS[:ASC]
-        children_to_render = @children.order('name ASC').page(page).per(limit)
-        render json: { children: children_to_render,
-                       page:,
-                       total_pages: children_to_render.total_pages,
-                       total_records: children_to_render.count,
-                       limit: },
-               include: ['child_profile'],
-               status: :ok
-      when Constants::USER_SORTINGS_ORDERS[:DESC]
-        children_to_render = @children.order('name DESC').page(page).per(limit)
-        render json: { children: children_to_render,
-                       page:,
-                       total_pages: children_to_render.total_pages,
-                       total_records: children_to_render.count,
-                       limit: },
-
-               include: ['child_profile'],
-               status: :ok
-      end
-    end
+    render ChildProfilesServices::ChildProfilesListingService.call(child_profiles_index_params[:page],
+                                                                   child_profiles_index_params[:sort_type],
+                                                                   child_profiles_index_params[:sort_order],
+                                                                   child_profiles_index_params[:limit])
   end
 
   def create

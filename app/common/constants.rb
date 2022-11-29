@@ -8,7 +8,10 @@ module Constants
   USER_SORTINGS = {
     All: 'all',
     Reviews: 'reviews',
-    Score: 'score',
+    Score: 'score'
+  }.freeze
+
+  USER_FILTERS = {
     Scored?: 'scored?'
   }.freeze
 

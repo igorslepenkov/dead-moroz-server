@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_24_083759) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_29_072715) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -39,6 +39,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_24_083759) do
     t.bigint "user_id"
     t.string "avatar"
     t.index ["user_id"], name: "index_child_profiles_on_user_id"
+  end
+
+  create_table "child_reviews", force: :cascade do |t|
+    t.integer "score"
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "child_profile_id"
+    t.index ["child_profile_id"], name: "index_child_reviews_on_child_profile_id"
   end
 
   create_table "jwt_denylist", force: :cascade do |t|
