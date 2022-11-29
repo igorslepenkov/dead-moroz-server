@@ -6,17 +6,17 @@ module Constants
   }.freeze
 
   USER_SORTINGS = {
-    All: 'all',
-    Reviews: 'reviews',
-    Score: 'score'
+    all: 'all',
+    reviews: 'reviews',
+    score: 'score'
   }.freeze
 
   USER_FILTERS = {
-    Scored?: 'scored?'
+    is_scored: 'is_scored'
   }.freeze
 
   USER_SORTINGS_ORDERS = {
-    ASC: 'ASC',
-    DESC: 'DESC'
+    asc: 'ASC',
+    desc: 'DESC'
   }.freeze
 end
