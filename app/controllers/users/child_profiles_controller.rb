@@ -2,10 +2,12 @@ class Users::ChildProfilesController < ApplicationController
   before_action :set_user, only: %i[create update]
 
   def index
-    render ChildProfilesServices::ChildProfilesListingService.call(child_profiles_index_params[:page],
-                                                                   child_profiles_index_params[:sort_type],
-                                                                   child_profiles_index_params[:sort_order],
-                                                                   child_profiles_index_params[:limit])
+    page, sort_type, filter_type, sort_order, limit = child_profiles_index_params.values_at(:page,
+                                                                                            :sort_type,
+                                                                                            :filter_type,
+                                                                                            :sort_order,
+                                                                                            :limit)
+    render ChildProfilesServices::ChildProfilesListingService.call(page, sort_type, filter_type, sort_order, limit)
   end
 
   def create
@@ -40,6 +42,6 @@ class Users::ChildProfilesController < ApplicationController
   end
 
   def child_profiles_index_params
-    params.permit(:page, :sort_type, :sort_order, :limit)
+    params.permit(:page, :sort_type, :filter_type, :sort_order, :limit)
   end
 end

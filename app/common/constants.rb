@@ -6,13 +6,14 @@ module Constants
   }.freeze
 
   USER_SORTINGS = {
-    all: 'all',
+    name: 'name',
     reviews: 'reviews',
     score: 'score'
   }.freeze
 
   USER_FILTERS = {
-    is_scored: 'is_scored'
+    scored: 'scored',
+    not_scored: 'not_scored'
   }.freeze
 
   USER_SORTINGS_ORDERS = {
