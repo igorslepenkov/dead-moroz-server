@@ -14,7 +14,7 @@ module ChildProfilesServices
                                       'users.email',
                                       'users.created_at',
                                       'users.updated_at',
-                                      'AVG(score) AS medium_score').joins(child_profile: [:child_reviews]).group('users.id')
+                                      'AVG(score) AS medium_score').joins('INNER JOIN child_profiles ON "child_profiles"."user_id" = "users"."id" LEFT OUTER JOIN child_reviews ON "child_reviews"."child_profile_id" = "child_profiles"."id"').group('users.id')
 
       if @sort_type == Constants::USER_SORTINGS[:name]
         case @sort_order
@@ -40,7 +40,8 @@ module ChildProfilesServices
       elsif @sort_type == Constants::USER_SORTINGS[:score]
         case @sort_order
         when Constants::USER_SORTINGS_ORDERS[:asc]
-          children_to_render = filter_profiles(children, @filter_type).order('AVG(score) ASC').page(@page).per(@limit)
+          children_to_render = filter_profiles(children,
+                                               @filter_type).order('AVG(score) ASC').page(@page).per(@limit)
           { json: { children: children_to_render,
                     page: @page,
                     total_pages: children_to_render.total_pages,
@@ -49,7 +50,8 @@ module ChildProfilesServices
             except: [:medium_score],
             status: :ok }
         when Constants::USER_SORTINGS_ORDERS[:desc]
-          children_to_render = filter_profiles(children, @filter_type).order('AVG(score) DESC').page(@page).per(@limit)
+          children_to_render = filter_profiles(children,
+                                               @filter_type).order('AVG(score) DESC').page(@page).per(@limit)
           { json: { children: children_to_render,
                     page: @page,
                     total_pages: children_to_render.total_pages,

@@ -1,5 +1,5 @@
 class Users::ChildProfilesController < ApplicationController
-  before_action :set_user, only: %i[create update]
+  before_action :set_user, except: %i[index]
 
   def index
     page, sort_type, filter_type, sort_order, limit = child_profiles_index_params.values_at(:page,
@@ -8,6 +8,12 @@ class Users::ChildProfilesController < ApplicationController
                                                                                             :sort_order,
                                                                                             :limit)
     render ChildProfilesServices::ChildProfilesListingService.call(page, sort_type, filter_type, sort_order, limit)
+  end
+
+  def show
+    return unless @user
+
+    render json: @user, include: [{ child_profile: { include: :child_reviews } }, 'child_presents']
   end
 
   def create
@@ -34,6 +40,8 @@ class Users::ChildProfilesController < ApplicationController
     return unless params[:id]
 
     @user = User.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render json: { message: 'User not found' }, status: :not_found
   end
 
   def child_profile_params
