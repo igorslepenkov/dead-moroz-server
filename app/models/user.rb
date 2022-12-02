@@ -11,5 +11,7 @@ class User < ApplicationRecord
 
   has_many :child_presents, dependent: :destroy, validate: true
 
+  has_many :child_reviews, dependent: :destroy, validate: true
+
   scope :children, -> { where(role: Constants::USER_ROLES[:child]).where.associated(:child_profile) }
 end
