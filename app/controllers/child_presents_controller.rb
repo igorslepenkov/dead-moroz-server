@@ -2,7 +2,10 @@ class ChildPresentsController < ApplicationController
   before_action :set_user
 
   def create
-    @child_profile.child_presents.build(child_present_params['0'])
+    name = child_present_params['0'][:name]
+    image = child_present_params['0'][:image]
+
+    @child_profile.child_presents.build({ name:, image:, user_id: @user.id })
 
     if @child_profile.save
       render json: @child_profile.child_presents, status: :ok
@@ -25,7 +28,7 @@ class ChildPresentsController < ApplicationController
 
   def set_user
     @child_profile = ChildProfile.find(params[:child_profile_id])
-    @user = User.where(id: params[:user_id]) || @child_profile.user
+    @user = User.find_by(id: params[:user_id]) || @child_profile.user
   end
 
   def child_present_params
