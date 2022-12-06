@@ -6,16 +6,12 @@ Rails.application.routes.draw do
                 registrations: 'users/registrations',
                 confirmations: 'users/confirmations'
               }
-  devise_scope :user do
-    get 'users/child_profiles/:page', to: 'users/child_profiles#index',
-                                      as: 'get_children_profiles'
-    get 'users/:id', to: 'users/child_profiles#show', as: 'get_detailed_child_info'
-    post 'users/:id/child_profile', to: 'users/child_profiles#create', as: 'create_child_profile'
-    patch 'users/:id/child_profile', to: 'users/child_profiles#update', as: 'update_child_profile'
+  resources :users do
+    resource :child_profile, only: %i[show create update]
+  end
 
-    post 'users/:id/child_presents', to: 'users/child_presents#create', as: 'create_child_present'
-    delete 'users/:id/child_presents/:present_id', to: 'users/child_presents#delete', as: 'delete_child_present'
-
-    post 'users/:id/child_reviews', to: 'users/child_reviews#create', as: 'create_child_review'
+  resources :child_profiles, only: %i[index] do
+    resources :child_presents, only: %i[create destroy]
+    resources :child_reviews, only: [:create]
   end
 end

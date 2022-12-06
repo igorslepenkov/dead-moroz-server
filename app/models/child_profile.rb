@@ -1,6 +1,7 @@
 class ChildProfile < ApplicationRecord
   belongs_to :user
   has_many :child_reviews
+  has_many :child_presents
 
   mount_uploader :avatar, AvatarUploader
   validates :avatar, file_size: { less_than: 2.megabytes }

@@ -1,4 +1,4 @@
-class Users::ChildProfilesController < ApplicationController
+class ChildProfilesController < ApplicationController
   before_action :set_user, except: %i[index]
 
   def index
@@ -13,13 +13,13 @@ class Users::ChildProfilesController < ApplicationController
   def show
     return unless @user
 
-    render json: @user, include: [{ child_profile: { include: :child_reviews } }, 'child_presents']
+    render json: @user, include: { child_profile: { include: %i[child_reviews child_presents] } }
   end
 
   def create
     @user.create_child_profile(child_profile_params)
     if @user.save
-      render json: @user, include: ['child_profile'], status: :ok
+      render json: @user, include: { child_profile: { include: :child_presents } }, status: :ok
     else
       render json: { message: 'Errors have occured', errors: @user.errors.full_messages }, status: :bad_request
     end
@@ -27,7 +27,7 @@ class Users::ChildProfilesController < ApplicationController
 
   def update
     if @user.child_profile.update(child_profile_params)
-      render json: @user, include: ['child_profile'], status: :ok
+      render json: @user, include: { child_profile: { include: :child_presents } }, status: :ok
     else
       render json: { message: 'Errors have occured', errors: @user.child_profile.errors.full_messages },
              status: :bad_request
@@ -37,9 +37,9 @@ class Users::ChildProfilesController < ApplicationController
   private
 
   def set_user
-    return unless params[:id]
+    return unless params[:user_id]
 
-    @user = User.find(params[:id])
+    @user = User.find(params[:user_id])
   rescue ActiveRecord::RecordNotFound
     render json: { message: 'User not found' }, status: :not_found
   end
