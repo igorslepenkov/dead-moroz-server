@@ -1,26 +1,36 @@
-class Users::ChildReviewsController < ApplicationController
-  before_action :set_user
+class ChildReviewsController < ApplicationController
+  before_action :set_child_profile
 
   def create
-    child_profile = User.children.find(create_params[:child_id]).child_profile
-    child_review = ChildReview.new(user: @user, child_profile:, score: create_params[:score],
-                                   comment: create_params[:comment])
-    if child_review.save
-      render json: { child_review: }, status: :created
+    user = User.find_by(id: create_params[:user_id]) || nil
+
+    @child_profile.child_reviews.build(user:, child_profile: @child_profile, score: create_params[:score],
+                                       comment: create_params[:comment])
+
+    if @child_profile.save
+      render json: @child_profile.child_reviews, status: :created
     else
-      render json: { message: 'Errors occured', errors: child_review.errors.full_messages }, status: :bad_request
+      render json: { message: 'Errors occured', errors: @child_profile.errors.full_messages }, status: :bad_request
     end
-  rescue ActiveRecord::RecordNotFound
-    render json: { message: 'Errors occured', errors: ['Child with provided id was not found'] }, status: :bad_request
+  end
+
+  def destroy
+    review = @child_profile.child_reviews.find(params[:id])
+
+    if review.destroy
+      render json: @child_profile.child_reviews, status: :ok
+    else
+      render json: { message: 'Something happend, review is not deleted' }, status: :bad_request
+    end
   end
 
   private
 
-  def set_user
-    @user = User.find(params[:id])
+  def set_child_profile
+    @child_profile = ChildProfile.find(params[:child_profile_id])
   end
 
   def create_params
-    params.require(:review).permit(:child_id, :score, :comment)
+    params.require(:child_review).permit(:score, :comment, :user_id)
   end
 end
