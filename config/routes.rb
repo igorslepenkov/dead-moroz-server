@@ -13,5 +13,6 @@ Rails.application.routes.draw do
   resources :child_profiles, only: %i[index] do
     resources :child_presents, only: %i[create destroy]
     resources :child_reviews, only: %i[create destroy]
+    resource :translation, only: %i[show]
   end
 end

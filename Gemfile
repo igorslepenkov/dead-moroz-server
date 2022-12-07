@@ -34,6 +34,7 @@ gem 'rack-cors'
 gem 'kaminari', '~> 1.2'
 
 # Caching
+gem 'hiredis'
 gem 'redis', '~> 5.0'
 
 # Image uploading
