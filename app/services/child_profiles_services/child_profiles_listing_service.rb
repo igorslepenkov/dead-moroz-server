@@ -42,48 +42,32 @@ module ChildProfilesServices
       case @sort_order
       when Constants::USER_SORTINGS_ORDERS[:asc]
         children_to_render = filter_profiles(children, @filter_type).order('name ASC').page(@page).per(@limit)
-        { json: { children: children_to_render,
-                  page: @page,
-                  total_pages: children_to_render.total_pages,
-                  total_records: children_to_render.length,
-                  limit: @limit },
-          except: [:medium_score],
-          status: :ok }
       when Constants::USER_SORTINGS_ORDERS[:desc]
         children_to_render = filter_profiles(children, @filter_type).order('name DESC').page(@page).per(@limit)
-        { json: { children: children_to_render,
-                  page: @page,
-                  total_pages: children_to_render.total_pages,
-                  total_records: children_to_render.length,
-                  limit: @limit },
-          except: [:medium_score],
-          status: :ok }
       end
+      { json: { children: children_to_render,
+                page: @page,
+                total_pages: children_to_render.total_pages,
+                total_records: children_to_render.length,
+                limit: @limit },
+        except: [:medium_score],
+        status: :ok }
     end
 
     def sort_by_score(children)
       case @sort_order
       when Constants::USER_SORTINGS_ORDERS[:asc]
-        children_to_render = filter_profiles(children,
-                                             @filter_type).order('AVG(score) ASC').page(@page).per(@limit)
-        { json: { children: children_to_render,
-                  page: @page,
-                  total_pages: children_to_render.total_pages,
-                  total_records: children_to_render.length,
-                  limit: @limit },
-          except: [:medium_score],
-          status: :ok }
+        children_to_render = filter_profiles(children, @filter_type).order('AVG(score) ASC').page(@page).per(@limit)
       when Constants::USER_SORTINGS_ORDERS[:desc]
-        children_to_render = filter_profiles(children,
-                                             @filter_type).order('AVG(score) DESC').page(@page).per(@limit)
-        { json: { children: children_to_render,
-                  page: @page,
-                  total_pages: children_to_render.total_pages,
-                  total_records: children_to_render.length,
-                  limit: @limit },
-          except: [:medium_score],
-          status: :ok }
+        children_to_render = filter_profiles(children, @filter_type).order('AVG(score) DESC').page(@page).per(@limit)
       end
+      { json: { children: children_to_render,
+                page: @page,
+                total_pages: children_to_render.total_pages,
+                total_records: children_to_render.length,
+                limit: @limit },
+        except: [:medium_score],
+        status: :ok }
     end
   end
 end
