@@ -4,7 +4,7 @@ class TranslationsController < ApplicationController
   def show
     cached_translation = Rails.cache.read("translated_profile/#{@child_profile.id}")
 
-    if cached_translation[:created_at] && cached_translation[:created_at] > @child_profile.updated_at
+    if cached_translation && cached_translation[:created_at] > @child_profile.updated_at
       translated_fields = cached_translation[:translated_fields]
     else
       translated_fields = ChildProfilesServices::TranslationService.call(@child_profile)
