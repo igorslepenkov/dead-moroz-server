@@ -2,8 +2,8 @@ class ChildPresentsController < ApplicationController
   before_action :set_user
 
   def create
-    name = child_present_params['0'][:name]
-    image = child_present_params['0'][:image]
+    name = child_present_params[:name]
+    image = child_present_params[:image]
 
     @child_profile.child_presents.build({ name:, image:, user_id: @user.id })
 
@@ -32,6 +32,6 @@ class ChildPresentsController < ApplicationController
   end
 
   def child_present_params
-    params.require(:child_present).permit("0": %i[name image])
+    params.require(:child_present).permit(:name, :image)
   end
 end

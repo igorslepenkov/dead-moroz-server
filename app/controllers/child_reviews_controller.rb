@@ -2,7 +2,7 @@ class ChildReviewsController < ApplicationController
   before_action :set_child_profile
 
   def create
-    user = User.find_by(id: create_params[:user_id]) || nil
+    user = User.find_by(id: create_params[:user_id])
 
     @child_profile.child_reviews.build(user:, child_profile: @child_profile, score: create_params[:score],
                                        comment: create_params[:comment])
