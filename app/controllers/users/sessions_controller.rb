@@ -1,8 +1,10 @@
 class Users::SessionsController < Devise::SessionsController
+  skip_before_action :authenticate_user!, only: [:create]
+
   private
 
   def respond_with(resource, _opts = {})
-    render json: { user: resource, message: 'You are logged in.' }, include: %w[child_profile child_presents],
+    render json: { user: resource, message: 'You are logged in.' }, include: { child_profile: { include: :child_presents } },
            status: :ok
   end
 

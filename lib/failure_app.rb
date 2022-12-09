@@ -1,13 +1,21 @@
 class FailureApp < Devise::FailureApp
   def respond
-    request.media_type == 'application/json' || request.media_type == 'multipart/form-data' ? api_unauthorized_request : super
+    if http_auth?
+      http_auth
+    elsif warden_options[:recall]
+      recall
+    else
+      something_got_wrong_response
+    end
   end
 
   private
 
-  def api_unauthorized_request
-    self.status = :unauthorized
-    self.content_type = 'json'
-    self.response_body = { message: 'Unauthorized' }.to_json
+  def something_got_wrong_response
+    response_obj = { message: 'Something got wrong' }
+
+    self.status = :bad_request
+    self.response_body = response_obj.to_json
+    self.content_type = request.format.to_s
   end
 end
