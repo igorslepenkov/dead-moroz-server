@@ -15,6 +15,8 @@ class ChildPresentsController < ApplicationController
   end
 
   def destroy
+    authorize ChildPresent
+
     @present = @child_profile.child_presents.find(params[:id])
 
     if @present.destroy

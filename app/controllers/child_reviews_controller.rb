@@ -2,6 +2,8 @@ class ChildReviewsController < ApplicationController
   before_action :set_child_profile
 
   def create
+    authorize ChildReview
+
     user = User.find_by(id: create_params[:user_id]) || nil
 
     @child_profile.child_reviews.build(user:, child_profile: @child_profile, score: create_params[:score],
@@ -15,6 +17,8 @@ class ChildReviewsController < ApplicationController
   end
 
   def destroy
+    authorize ChildReview
+
     review = @child_profile.child_reviews.find(params[:id])
 
     if review.destroy
