@@ -20,6 +20,7 @@ gem 'bootsnap', require: false
 
 # Rails background jobs
 gem 'sidekiq', '~> 7.0'
+gem 'sidekiq-cron'
 
 # Authorization and authentication
 gem 'devise', '~> 4.8'
