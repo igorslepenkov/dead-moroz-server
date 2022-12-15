@@ -40,6 +40,7 @@ gem 'redis', '~> 5.0'
 
 # Image uploading
 gem 'carrierwave', '~> 2.2'
+gem 'carrierwave-base64'
 gem 'file_validators'
 gem 'fog'
 
