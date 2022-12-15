@@ -2,6 +2,8 @@ class ChildProfilesController < ApplicationController
   before_action :set_user, except: %i[index]
 
   def index
+    authorize ChildProfile
+
     page, sort_type, filter_type, sort_order, limit = child_profiles_index_params.values_at(:page,
                                                                                             :sort_type,
                                                                                             :filter_type,
@@ -13,10 +15,14 @@ class ChildProfilesController < ApplicationController
   def show
     return unless @user
 
+    authorize ChildProfile
+
     render json: @user, include: { child_profile: { include: %i[child_reviews child_presents] } }
   end
 
   def create
+    authorize ChildProfile
+
     @user.create_child_profile(child_profile_params)
     if @user.save
       render json: @user, include: { child_profile: { include: :child_presents } }, status: :ok
@@ -26,6 +32,8 @@ class ChildProfilesController < ApplicationController
   end
 
   def update
+    authorize ChildProfile
+
     if @user.child_profile.update(child_profile_params)
       render json: @user, include: { child_profile: { include: :child_presents } }, status: :ok
     else
