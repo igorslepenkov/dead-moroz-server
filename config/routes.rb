@@ -9,7 +9,8 @@ Rails.application.routes.draw do
               controllers: {
                 sessions: 'users/sessions',
                 registrations: 'users/registrations',
-                confirmations: 'users/confirmations'
+                confirmations: 'users/confirmations',
+                invitations: 'users/invitations'
               }
   resources :users do
     resource :child_profile, only: %i[show create update]
