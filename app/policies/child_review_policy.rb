@@ -1,6 +1,6 @@
 class ChildReviewPolicy < ApplicationPolicy
   def create?
-    !user.child
+    !user.child?
   end
 
   def destroy?

@@ -21,4 +21,10 @@ Rails.application.routes.draw do
     resources :child_reviews, only: %i[create destroy]
     resource :translation, only: %i[show]
   end
+
+  scope :moroz_board do
+    get 'info', to: 'moroz_board#info'
+    get 'children', to: 'moroz_board#children'
+    get 'elves', to: 'moroz_board#elves'
+  end
 end

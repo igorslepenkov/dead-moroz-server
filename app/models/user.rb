@@ -14,6 +14,8 @@ class User < ApplicationRecord
   has_many :child_reviews, dependent: :destroy, validate: true
 
   scope :children, -> { where(role: Constants::USER_ROLES[:child]).where.associated(:child_profile) }
+  scope :elves, -> { where(role: Constants::USER_ROLES[:elf]) }
+  scope :dead_moroz, -> { where(role: Constants::USER_ROLES[:dead_moroz]) }
 
   def child?
     role == Constants::USER_ROLES[:child]
