@@ -16,4 +16,22 @@ class MorozBoardController < ApplicationController
                    children: { count: children_count, with_review_count: children_with_reviews_count,
                                without_review_count: children_count - children_with_reviews_count } }
   end
+
+  def elves
+    authorize User, policy_class: MorozBoardPolicy
+
+    page, sort_type, filter_type, sort_order, limit = elves_index_params.values_at(:page,
+                                                                                   :sort_type,
+                                                                                   :filter_type,
+                                                                                   :sort_order,
+                                                                                   :limit)
+
+    render ElvesServices::ElvesListingService.call(page, sort_type, filter_type, sort_order, limit)
+  end
+
+  private
+
+  def elves_index_params
+    params.permit(:page, :sort_type, :filter_type, :sort_order, :limit)
+  end
 end

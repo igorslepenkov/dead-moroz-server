@@ -11,9 +11,19 @@ module Constants
     score: 'score'
   }.freeze
 
+  ELVES_SORTINGS = {
+    name: 'name',
+    reviews_count: 'reviews'
+  }.freeze
+
   USER_FILTERS = {
     scored: 'scored',
     not_scored: 'not_scored'
+  }.freeze
+
+  ELVES_FILTERS = {
+    accepted_invitation: 'accept',
+    not_accepted_invitation: 'not_accept'
   }.freeze
 
   USER_SORTINGS_ORDERS = {
